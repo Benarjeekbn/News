@@ -21,5 +21,5 @@ app.use(cookies());
 app.use(router);
 
 app.listen(process.env.APP_PORT, function () {
-  console.log(`Server running on ${process.env.APP_PORT}`);
+  console.log(`Server running on ${process.env.PORT}`);
 });
