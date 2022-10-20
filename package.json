@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
-  “engines”: {
-“node” : “16.13.1”
+  "engines": {
+"node" : "16.13.1"
 },
   "author": "Benarjee",
   "license": "ISC",
