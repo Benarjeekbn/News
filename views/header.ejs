@@ -1,0 +1,96 @@
+<div class="container">
+    <header class="blog-header lh-1 py-3">
+      <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1">
+          <a class="link-secondary" href="#"></a>
+        </div>
+        <div class="col-4 text-center">
+          <a class="blog-header-logo text-dark" href="/home"><h1> NEWS</h1></a>
+        </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+          <div class="nav-item dropdown dropdown-toggle-icon-none nav-search">
+            <a class="nav-link dropdown-toggle" role="button" href="#" id="navSearch" data-bs-toggle="dropdown" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end shadow rounded p-2" aria-labelledby="navSearch">
+              <% if(user==false) { %>
+              <form action="/search" method="POST" class="input-group">
+                <input class="form-control border-success" type="search" placeholder="Search" name="search" aria-label="Search">
+                <button class="btn btn-success m-0" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+          <div class="nav-item ms-2 dropdown">
+            <a class="nav-link btn icon-md p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+              <img class="avatar-img rounded-2" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="">
+            </a>
+            <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3" aria-labelledby="profileDropdown">
+             
+
+              
+                <li><a class="dropdown-item bg-danger-soft-hover" href="/signin">Sign in</a></li>
+                <% } else { %>
+                  <form action="/mysearch" method="POST" class="input-group">
+                    <input class="form-control border-success" type="search" placeholder="Search" name="search" aria-label="Search">
+                    <button class="btn btn-success m-0" type="submit">Search</button>
+                  </form>
+                </div>
+              </div>
+              <div class="nav-item ms-2 dropdown">
+                <a class="nav-link btn icon-md p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img class="avatar-img rounded-2" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="">
+                </a>
+                <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3" aria-labelledby="profileDropdown">
+              <li class="px-3">
+                <div class="d-flex align-items-center position-relative">
+                  <div class="avatar me-3">
+                    <img class="avatar-img rounded-circle" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar">
+                  </div>
+                  <div>
+                    <a class="h6 stretched-link" href="#"><%=user.user_name%></a>
+                  </div>
+                </div>
+                <a class="dropdown-item btn btn-primary-soft btn-sm my-2 text-center" href="/myprofile">View profile</a>
+              </li>
+              <li><a class="dropdown-item" href="/bookmarks"><i class="bi bi-bookmark-check fa-fw pe-2"></i>Bookmarks</a></li>
+              <li class="dropdown-divider"></li>
+              <li><a class="dropdown-item bg-danger-soft-hover" href="/logout"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+  
+    <div class="nav-scroller py-1 mb-2">
+      <nav class="nav d-flex justify-content-between">
+        <% if(user==false) { %>
+
+        <a class="p-2 link-secondary" href="/news/world">World</a>
+        
+        <a class="p-2 link-secondary" href="/news/general">General</a>
+        <a class="p-2 link-secondary" href="/news/business">Business</a>
+        <a class="p-2 link-secondary" href="/news/politics">Politics</a>
+        <a class="p-2 link-secondary" href="/news/technology">Technology</a>
+        <a class="p-2 link-secondary" href="/news/entertainment">Entertainment</a>
+        <a class="p-2 link-secondary" href="/news/health">Health</a>
+        <a class="p-2 link-secondary" href="/news/science">Science</a>
+        <a class="p-2 link-secondary" href="/news/sports">Sports</a>
+        
+        <% } else { %>
+          <a class="p-2 link-secondary" href="/mynews/world">World</a>
+        
+        <a class="p-2 link-secondary" href="/mynews/general">General</a>
+        <a class="p-2 link-secondary" href="/mynews/business">Business</a>
+        <a class="p-2 link-secondary" href="/mynews/politics">Politics</a>
+        <a class="p-2 link-secondary" href="/mynews/technology">Technology</a>
+        <a class="p-2 link-secondary" href="/mynews/entertainment">Entertainment</a>
+        <a class="p-2 link-secondary" href="/mynews/health">Health</a>
+        <a class="p-2 link-secondary" href="/mynews/science">Science</a>
+        <a class="p-2 link-secondary" href="/mynews/sports">Sports</a>
+        <% } %>
+      </nav>
+    </div>
+  </div>

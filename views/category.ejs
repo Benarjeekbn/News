@@ -1,0 +1,141 @@
+<%- include ('head.ejs')%>
+<%- include ('header.ejs')%>
+<main class="container">
+    <% for(let i=0;i<data.length;i++){%>
+        <% if(data[i].urlToImage!=null){ %>
+            
+        <div class="card border rounded-3 up-hover p-4 mb-4">
+            <div class="row">
+                <div class="col-md-5">
+                    <img class="rounded-3" width="100%" src="<%=data[i].urlToImage%>" alt="">
+                </div>
+                <div class="col-md-7 mt-3 mt-md-0">
+                    <a href="#" class="badge bg-info mb-2"><i class="fas fa-circle me-2 small fw-bold"></i><%=category%></a>
+                    <a class="nav-item dropdown ms-sm-auto ">
+                        <a class="nav-link mb-0  text-reset btn-link" style="float: right;" href="#" id="cardShareAction" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="bi bi-three-dots-vertical"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu" aria-labelledby="cardShareAction">
+                          <li class="dropdown-submenu dropleft">
+                            <a href="#" role="button" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share fa-fw pe-2"></i>Share post via …</a>
+                            <ul class="dropdown-menu dropdown-submenu">
+                                <li style="padding: 10px;"><a style="padding: 10px;" class="btn-tweet" href="https://twitter.com/intent/tweet?text=YOUR-TITLE&url=<%=data[i].url%>&via=TWITTER-HANDLE"><i class="bi bi-twitter me-8"></i></a><a class="btn-facebook" href="https://www.facebook.com/sharer/sharer.php?u=<%=data[i].url%>"><i class="bi bi-facebook"></i></a></li>
+                                <li></li>
+                            </ul>
+                          </li>
+                         <li class="dropdown-submenu dropleft">
+                            <a href="#" role="button" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-bookmark-check fa-fw pe-2"></i> Bookmark </a>
+                            <ul class="dropdown-menu dropdown-submenu">
+                              <%if(user!=false){%>
+                                <%if(category.length!=0){%>
+                                    <li>
+                                        <form action="/bookmarks" method="GET">
+                                          <button type="submit" class="dropdown-item" >create category!</button>
+                                        </form>
+                                      </li>
+                              <%for(let j=0;j<categories.length;j++){%>
+                              <li>
+                                  <form action="/bookmark/<%=categories[j].categoryId%>/<%=data[i].url%>" method="post">
+                                    <button type="submit" class="dropdown-item" ><%=categories[j].categoryName%></button>
+                                  </form>
+                              </li>
+                              <%}%>
+                              <% }  %>
+                              <%} else {%>
+                                <li><a href="/signin">Signin</a> to bookmark!</li>
+                                <% } %>
+                          </ul>
+                          </li>
+                        </ul>
+                      </a> 
+                      <div class="modal " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Share</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <a class="btn-tweet" href="https://twitter.com/intent/tweet?text=YOUR-TITLE&url=<%=data[i].url%>&via=TWITTER-HANDLE">Twitter</a>
+                                <a class="btn-facebook" href="https://www.facebook.com/sharer/sharer.php?u=<%=data[i].url%>">Facebook</a>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    <h3><a href="<%=data[i].url%>"id="url" class="btn-link  text-dark fw-bold"><%=data[i].title%></a></h3>
+                    <p><%=data[i].description%></p>
+                    <!-- Card info -->
+                    <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <div class="d-flex align-items-center position-relative">
+                                    <div class="avatar avatar-xs">
+                                       
+                                    </div>
+                                    <span class="ms-3">by <a href="#" class=""><%=data[i].source.name%></a></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item"><%=new Date(data[i].publishedAt).toDateString();%></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <% } else { %>
+            <div class="card mb-4">
+                <div class="card-body p-4 border rounded-3">	
+                    <a href="" class="badge bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i><%=category%></a>
+                    <a class="nav-item dropdown ms-sm-auto">
+                        <a class="nav-link mb-0  text-reset btn-link" style="float: right;" href="#" id="cardShareAction" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="bi bi-three-dots-vertical"></i>
+                        </a>
+                       
+                        <ul class="dropdown-menu dropdown-menu-up droupup" aria-labelledby="cardShareAction">
+                          
+                          <form method="post">
+                          <li> <button type="submit" class="dropdown-item" formaction="/bookmark/<%=data[i].url%>" formmethod="POST" ><i class="bi bi-bookmark-check fa-fw pe-2"></i>Bookmark</button></li>
+                        </form>
+                          <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="bi bi-share fa-fw pe-2"></i>Share post via …
+                          </button></li>
+                    
+                        </ul>
+                      </a>
+                      <div class="modal " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Share</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <a class="btn-tweet" href="https://twitter.com/intent/tweet?text=YOUR-TITLE&url=<%=data[i].url%>&via=TWITTER-HANDLE">Twitter</a>
+                                <a class="btn-facebook" href="https://www.facebook.com/sharer/sharer.php?u=<%=data[i].url%>">Facebook</a>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    <h4 class="card-title"><a href="<%=data[i].url%>" id="url" class="btn-link text-reset fw-bold"><%=data[i].title%></a></h4>
+                    <p class="card-text m-0"><%=data[i].description%></p>
+                    <!-- Card info -->
+                    <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <div class="d-flex align-items-center position-relative">
+                                    <div class="avatar avatar-xs">
+                                        
+                                    </div>
+                                    <span class="ms-3">by <a href="#" class="stretched-link text-reset btn-link"><%=data[i].source.name%></a></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item"><%=data[i].publishedAt%></li>
+                    </ul>
+                </div>
+            </div>
+
+        <% } %>
+    <% } %>
+</main>

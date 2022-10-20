@@ -1,0 +1,93 @@
+<%- include ('head.ejs')%>
+<%- include ('header.ejs')%>
+<div class="container">
+<div class="input-group">
+  <div class="row">
+    
+    <div class="col-6">
+      <form action="/searchBookmark" method="post">
+        <div class="row  justify-content-start">
+          
+           
+              <label for="category" class="col-form-label">Search</label>
+            
+              <input type="text" id="category" name="searchBookmark" class="form-control" aria-describedby="category">
+            
+              
+                <button type="submit" class="btn btn-outline-dark">Search</button>
+              
+            
+          
+          </div>
+      </form>
+    </div>
+    <div class="col-6">
+      <form action="/category" method="post">
+      <div class="row  justify-content-start">
+        
+            <label for="category" class="col-form-label">Add Category</label>
+          
+            <input type="text" id="category" name="category" class="form-control" aria-describedby="category">
+          
+            
+              <button type="submit" class="btn btn-outline-dark">ADD</button>
+            
+          
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+</div>
+<main class="container">
+    <section class="pt-4 pb-0 card-grid">
+        
+
+  
+  
+    </section>
+    </main>
+<main class="container">
+    <section class="pt-4 pb-0 card-grid">
+        <div class="container">
+            <div class="row">
+                <div class="offset-lg-1 col-lg-8 col-12">
+                 <div class="mb-8 mt-8">
+                    <h3 class="mb-3">My Bookmarks</h3>
+                    <ul class="nav nav-category" id="categoryCollapseMenu">
+                        <% for(let i=0;i<category.length;i++){ %>
+                            <%if (category[i].id==id) {%>
+                       <li class="nav-item border-bottom w-100 p-3 collapsed" data-bs-toggle="collapse"
+                          data-bs-target="#categoryFlushOne" aria-expanded="false" aria-controls="categoryFlushOne">
+                          <a href="#"
+                             class="nav-link"><h4><i class="bi bi-arrow-right-short"></i><%=category[i].categoryName%></h4></a>
+                             <a href="/delete/category/<%=category[i].categoryId%>" style="float: right;"><i class="bi bi-trash3-fill"></i></a>
+                          <div id="categoryFlushOne" class="accordion-collapse collapse"
+                             data-bs-parent="#categoryCollapseMenu">
+                             <div>
+                                <ul class="nav flex-column ms-3">
+                            
+                                    <% for(let j=0;j<bookmarks.length;j++){ %>
+                                        <%if(bookmarks[j].cId==category[i].categoryId){%>
+                                   <li class="nav-item"><a href="<%=bookmarks[j].url%>" class="nav-link"><i class="bi bi-caret-right-fill"></i><%=bookmarks[j].title%></a><a href="/delete/category/<%=bookmarks[j].bookmarkId%>" style="float: right;"><i class="bi bi-trash3-fill"></i></a></li>
+                                   <% } %>
+                                   <% } %>
+                                </ul>
+                             </div>
+                          </div>
+                       </li>
+                            <% } %>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>  
+            </div>
+            </div>
+            </section>
+               
+
+
+
+           
+          
+</main>
