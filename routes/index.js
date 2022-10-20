@@ -2,6 +2,7 @@ const express = require('express');
 const router =express.Router();
 const ViewController = require('../controllers/view-controller')
 const auth = require('../middleware/auth')
+router.get('/',(req,res)=>{res.redirect('/home')})
 router.get('/home',ViewController.homePage);
 router.get('/myhome',auth,ViewController.HomePage);
 router.get('/news/:category',ViewController.getCategory);
