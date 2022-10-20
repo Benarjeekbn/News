@@ -17,13 +17,13 @@ const con = mysql.createConnection({
 async function homePage(req, res) {
     var apiData = await ApiController.headlines();
     if (apiData.status == "ok") {
-      con.query('select c.id, c.categoryId, c.categoryName, b.categoryId,b.bookmarkId,b.url from category c inner join bookmark b where c.categoryId=b.categoryId;',(err,results)=>{
+      
         res.render("home", {
           data: apiData.articles,
           bookmarks:results,
           user: false,
         });
-      })
+      
       
     } else {
       res.render("offline");
