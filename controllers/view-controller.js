@@ -20,7 +20,7 @@ async function homePage(req, res) {
       
         res.render("home", {
           data: apiData.articles,
-          bookmarks:results,
+          
           user: false,
         });
       
