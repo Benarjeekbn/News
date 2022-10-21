@@ -218,7 +218,7 @@ async function SignIn(req, res) {
           res.redirect("/myhome");
         } else {
           let message = "wrong username or password";
-          res.redirect("/signin", {
+          res.render("/signin", {
             message,
           });
         }
