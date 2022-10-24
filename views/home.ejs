@@ -156,12 +156,12 @@
                                 <a href="#" role="button" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-bookmark-check fa-fw pe-2"></i> Bookmark </a>
                                 <ul class="dropdown-menu dropdown-submenu">
                                   <%if(user!=false){%>
+                                    <li>
+                                      <form action="/bookmarks" method="GET">
+                                        <button type="submit" class="dropdown-item" >create category!</button>
+                                      </form>
+                                    </li>
                                     <%if(category.length!=0){%>
-                                      <li>
-                                        <form action="/bookmarks" method="GET">
-                                          <button type="submit" class="dropdown-item" >create category!</button>
-                                        </form>
-                                      </li>
                                   <%for(let j=0;j<category.length;j++){%>
                                   <li>
                                       <form action="/bookmark/<%=category[j].categoryId%>/<%=data[i].url%>" method="post">
