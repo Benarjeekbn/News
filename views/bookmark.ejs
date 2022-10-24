@@ -1,44 +1,36 @@
 <%- include ('head.ejs')%>
 <%- include ('header.ejs')%>
 <div class="container">
-<div class="input-group">
-  <div class="row">
-    
-    <div class="col-6">
+  <div class="row d-flex">
+    <div class="col-md-6">
       <form action="/searchBookmark" method="post">
-        <div class="row  justify-content-start">
-          
-           
-              <label for="category" class="col-form-label">Search</label>
-            
-              <input type="text" id="category" name="searchBookmark" class="form-control" aria-describedby="category">
-            
-              
+        <div class="mb-3 row">
+        <div class="col-sm-8">
+              <input type="text" id="category" name="searchBookmark" placeholder="Search Bookmarks" class="form-control" aria-describedby="category">
+            </div>
+            <div class="col-sm-4">
                 <button type="submit" class="btn btn-outline-dark">Search</button>
-              
-            
-          
-          </div>
+              </div>
+            </div>
       </form>
     </div>
-    <div class="col-6">
+    <div class="col-md-6">
       <form action="/category" method="post">
-      <div class="row  justify-content-start">
-        
-            <label for="category" class="col-form-label">Add Category</label>
-          
-            <input type="text" id="category" name="category" class="form-control" aria-describedby="category">
-          
-            
+        <div class="mb-3 row">
+            <div class="col-sm-8">
+            <input type="text" id="category" name="category" placeholder="Create Category" class="form-control" aria-describedby="category">
+          </div>
+          <div class="col-sm-4">
               <button type="submit" class="btn btn-outline-dark">ADD</button>
-            
-          
-        </div>
+            </div>
+            </div>
     </form>
     </div>
   </div>
 </div>
-</div>
+
+  
+
 <main class="container">
     <section class="pt-4 pb-0 card-grid">
         
