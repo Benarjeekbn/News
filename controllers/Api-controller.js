@@ -36,19 +36,10 @@ async function searchByName(query){
   return response.data
 }
 
-async function getTitleAtUrl(url){
-  var url = `http://textance.herokuapp.com/title/${url}`;
-  const options = {
-    headers: {
-      'User-Agent': 'Mozilla/5.0'
-    }
-  }
-  var response = await axios.get(url,options);
-  return response.data;
-}
+
 module.exports = {
   headlines,
   category,
   searchByName,
-  getTitleAtUrl
+  
 }

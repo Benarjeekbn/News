@@ -313,17 +313,8 @@ async function searchBookmark(req,res){
   var searchstr = req.body.searchBookmark;
   con.query(`select url from bookmark where title like '%${searchstr}%';`,async (err,result)=>{
     if(err) throw err;
-    var searchData = [];
-    for(let i=0;i<result.length;i++){
-      var title = await ApiController.getTitleAtUrl(result[i].url);
-      searchData.push({
-        title:title,
-        url:result[i].url
-      });
-      // 
-      
-    }
-    res.render('bookmark',{searchData,user:req.user.user_id,category:[]});
+  
+    res.render('bookmark',{searchData:result,user:req.user.user_id,category:[]});
     
   })
 }
