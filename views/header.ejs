@@ -5,7 +5,11 @@
           <a class="link-secondary" href="#"></a>
         </div>
         <div class="col-4 text-center">
+          <% if(user==false) { %>
           <a class="blog-header-logo text-dark" href="/home"><h1> NEWS</h1></a>
+          <% } else {%>
+            <a class="blog-header-logo text-dark" href="/myhome"><h1> NEWS</h1></a>
+          <%}%>
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
           <div class="nav-item dropdown dropdown-toggle-icon-none nav-search">
