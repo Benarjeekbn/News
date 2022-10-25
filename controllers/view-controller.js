@@ -113,7 +113,8 @@ async function searchNews(req, res) {
   if (apiData.status == "ok") {
     res.render("search", {
       data: apiData.articles,
-      user:false
+      user:false,
+      query
     });
   } else {
     res.render("offline");
@@ -131,7 +132,8 @@ async function SearchNews(req, res) {
     res.render("search", {
       data: apiData.articles,
       user:req.user,
-      category:results
+      category:results,
+      query
     });
   })
   } else {
