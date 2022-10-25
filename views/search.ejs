@@ -20,7 +20,7 @@
                         <li class="dropdown-submenu dropleft">
                           <a href="#" role="button" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share fa-fw pe-2"></i>Share post via …</a>
                           <ul class="dropdown-menu dropdown-submenu">
-                              <li style="padding: 10px;"><a style="padding: 10px;" class="btn-tweet" href="https://twitter.com/intent/tweet?text=YOUR-TITLE&url=<%=data[i].url%>&via=TWITTER-HANDLE"><i class="bi bi-twitter me-8"></i></a><a class="btn-facebook" href="https://www.facebook.com/sharer/sharer.php?u=<%=data[i].url%>"><i class="bi bi-facebook"></i></a></li>
+                            <li style="padding: 10px;"><a style="padding: 10px;" class="btn-tweet" href="https://twitter.com/intent/tweet?text=<%=data[i].title%>&url=<%=data[i].url%>"><i class="bi bi-twitter me-8"></i></a><a class="btn-facebook" href="https://www.facebook.com/sharer/sharer.php?u=<%=data[i].url%>"><i class="bi bi-facebook"></i></a><a style="padding: 10px;" class="btn-tweet" href="https://api.whatsapp.com/send?phone=whatsappphonenumber&text=<%=data[i].url%>"><i class="bi bi-whatsapp"></i></a></li>
                               <li></li>
                           </ul>
                         </li>
