@@ -36,6 +36,7 @@
                               <%for(let j=0;j<categories.length;j++){%>
                               <li>
                                   <form action="/bookmark/<%=categories[j].categoryId%>/<%=data[i].url%>" method="post">
+                                    <input type="text" name="title" value="<%=data[i].title%>" id="" hidden>
                                     <button type="submit" class="dropdown-item" ><%=categories[j].categoryName%></button>
                                   </form>
                               </li>

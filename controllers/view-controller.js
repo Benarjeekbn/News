@@ -46,7 +46,7 @@ async function HomePage(req, res) {
       });
 
       var bookmarks = new Promise((success,failure)=>{
-        con.query('select c.id, c.categoryId, c.categoryName, b.categoryId,b.bookmarkId,b.url from category c inner join bookmark b where c.categoryId=b.categoryId and id=?',req.user.user_id,(err,results)=>{
+        con.query('select c.id, c.categoryId, c.categoryName, b.categoryId,b.bookmarkId,b.url,b.title from category c inner join bookmark b where c.categoryId=b.categoryId and id=?',req.user.user_id,(err,results)=>{
           if(err){
             failure(err);
           } else {
@@ -55,22 +55,13 @@ async function HomePage(req, res) {
         })
       })
       Promise.all([category,bookmarks]).then(async (result)=>{
-        var bookmarks =[];
-        for (let i = 0; i < result[1].length; i++) {
-          var title = await ApiController.getTitleAtUrl(result[1][i].url);
-          bookmarks.push({
-            title: title,
-            cId: result[1][i].categoryId,
-            bid: result[1][i].bookmarkId,
-            url: result[1][i].url,
-          });
-        }
+        
         console.log(bookmarks)
         res.render("home", {
           data: apiData.articles,
           user: req.user,
           category:result[0],
-          bookmarks:bookmarks
+          bookmarks:result[1]
         });
       })
       
@@ -248,14 +239,15 @@ function myProfile(req, res) {
 
 function makeBookmark(req, res) {
   var url = req.params[0];
-  var cId = req.params.cid;
+  var cId = req.params.cid; 
+  var title = req.body.title;
   console.log(url);
   console.log(cId);
   var bookmarkid = uuidv1();
   var id = req.user.user_id;
   con.query(
-    "insert into bookmark (categoryId,bookmarkid,url) values (?,?,?)",
-    [cId, bookmarkid, url],
+    "insert into bookmark (categoryId,bookmarkid,url,title) values (?,?,?,?)",
+    [cId, bookmarkid, url,title],
     (err) => {
       if (err) throw err;
       // res.redirect("/myHome");
@@ -286,7 +278,7 @@ async function bookmarks(req, res) {
   })
 
   const bookmark =new Promise((success,failure)=>{
-    con.query('select categoryId,bookmarkId,url from bookmark',(err,results)=>{
+    con.query('select categoryId,bookmarkId,url,title from bookmark',(err,results)=>{
       if(err){
         failure(err);
       } else {
@@ -296,17 +288,8 @@ async function bookmarks(req, res) {
   })
   
   Promise.all([category,bookmark]).then(async (result)=>{
-    var bookmarks =[];
-    for (let i = 0; i < result[1].length; i++) {
-      var title = await ApiController.getTitleAtUrl(result[1][i].url);
-      bookmarks.push({
-        title: title,
-        cId: result[1][i].categoryId,
-        bid: result[1][i].bookmarkId,
-        url: result[1][i].url,
-      });
-    }
-    res.render('bookmark',{bookmarks,category:result[0],user:req.user,id:req.user.user_id})
+    
+    res.render('bookmark',{bookmarks:result[1],category:result[0],user:req.user,id:req.user.user_id})
   })
 }
 
@@ -328,7 +311,7 @@ async function deleteBookmark(req,res){
 
 async function searchBookmark(req,res){
   var searchstr = req.body.searchBookmark;
-  con.query(`select url from bookmark where url like '%${searchstr}%';`,async (err,result)=>{
+  con.query(`select url from bookmark where title like '%${searchstr}%';`,async (err,result)=>{
     if(err) throw err;
     var searchData = [];
     for(let i=0;i<result.length;i++){
