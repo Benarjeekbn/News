@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v1: uuidv1 } = require("uuid");
 const saltround = 10;
-
+try{
 const con = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USERNAME,
@@ -12,7 +12,9 @@ const con = mysql.createConnection({
   database: process.env.DB_NAME,
    port: process.env.DB_PORT,
 });
-
+} catch(e){
+  console.log(e)
+}
 async function homePage(req, res) {
     var apiData = await ApiController.headlines();
     if (apiData.status == "ok") {
