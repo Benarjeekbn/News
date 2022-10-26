@@ -1,84 +1,132 @@
 <%- include ('head.ejs')%>
 <%- include ('header.ejs')%>
 
-
-  
-
 <main class="container">
     <section class="pt-4 pb-0 card-grid">
         
       <div class="container">
         <div class="row d-flex">
+          
           <div class="col-md-6">
-            <form action="/searchBookmark" method="post">
+            
               <div class="mb-3 row">
               <div class="col-sm-8">
-                    <input type="text" id="category" name="searchBookmark" placeholder="Search Bookmarks" class="form-control" aria-describedby="category">
+                <input type="text" id="myInput" onkeyup="myFunction()"  class="form-control" placeholder="Search for Bookmarks.." title="Type in a name">
+                <ul class="col-sm-4 " id="myUL">
+                  <%for(let i=0;i<bookmarks.length;i++){%>
+                  <li><a class="btn-link  text-secondary fw-bold" href="<%=bookmarks[i].url%>"><%=bookmarks[i].title%></a></li>
+                  <%}%>
+                </ul>
+                   
                   </div>
                   <div class="col-sm-4">
                       <button type="submit" class="btn btn-outline-dark">Search</button>
                     </div>
                   </div>
-            </form>
+                
+                  
+            
           </div>
           <div class="col-md-6">
             <form action="/category" method="post">
+            
               <div class="mb-3 row">
+                  
                   <div class="col-sm-8">
                   <input type="text" id="category" name="category" placeholder="Create Category" class="form-control" aria-describedby="category">
                 </div>
                 <div class="col-sm-4">
                     <button type="submit" class="btn btn-outline-dark">ADD</button>
                   </div>
+                    
                   </div>
+                  
+                
+              
           </form>
           </div>
         </div>
+      
       </div>
   
   
     </section>
     </main>
-    <main class="container">
+<main class="container">
 
 
-      <section class="pt-4 pb-0 card-grid">
-        <div class="container">
-            <div class="row">
-                
-                 
-                    <h3 class="mb-3">My Bookmarks</h3>
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                      <% for(var i=0;i<category.length;i++){ %>
+  <section class="pt-4 pb-0 card-grid">
+    <div class="container">
+        <div class="row">
+            
+             
+                <h3 class="mb-3">My Bookmarks</h3>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                  <% for(var i=0;i<category.length;i++){ %>
+                    
+                    <%if (category[i].id==id) {%>
+                      <% let id=category[i].categoryId.replaceAll('-','')%>
+                      <% let pd=id.replace(/[0-9]/g,'')%>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header " id="flush-headingOne">
+                      <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#<%=pd%>" aria-expanded="false" aria-controls="<%=pd%>">
+                        <h3 class="btn-link  text-dark fw-bold"><%=category[i].categoryName%></h3>
                         
-                        <%if (category[i].id==id) {%>
-                          <% let id=category[i].categoryId.replaceAll('-','')%>
-                          <% let pd=id.replace(/[0-9]/g,'')%>
-                      <div class="accordion-item">
-                        <h2 class="accordion-header " id="flush-headingOne">
-                          <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#<%=pd%>" aria-expanded="false" aria-controls="<%=pd%>">
-                            <h3 class="btn-link  text-dark fw-bold"><%=category[i].categoryName%></h3>
-                            
-                          </button>
-                         
-                        </h2>
-                        
-                        <div id="<%=pd%>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                          <% for(let j=0;j<bookmarks.length;j++){ %>
-                            <%if(bookmarks[j].categoryId==category[i].categoryId){%>
-                          <div class="accordion-body"><a href="<%=bookmarks[j].url%>" class="btn-link  text-secondary fw-bold"><%=bookmarks[j].title%></a><a href="/delete/bookmark/<%=bookmarks[j].bookmarkId%>" style="float: right;"><i class="bi bi-trash3-fill"></i></a></div>
-                          <% } %>
-                        <% } %>
-                        </div>
-                        
-                      </div>
+                      </button>
+                      
+                    </h2>
+                    
+                    <div id="<%=pd%>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                      <% for(let j=0;j<bookmarks.length;j++){ %>
+                        <%if(bookmarks[j].categoryId==category[i].categoryId){%>
+                      <div class="accordion-body"><a href="<%=bookmarks[j].url%>" class="btn-link  text-secondary fw-bold"><%=bookmarks[j].title%></a><a href="/delete/bookmark/<%=bookmarks[j].bookmarkId%>" style="float: right;"><i class="bi bi-trash3-fill"></i></a></div>
                       <% } %>
-                      <% } %>
+                    <% } %>
                     </div>
-                
-           
-            </div>
-            </div>
-            </section> 
-          
+                    
+                  </div>
+                  <% } %>
+                  <% } %>
+                </div>
+            
+       
+        </div>
+        </div>
+        </section> 
+
+
+
+
+       
+
+
+
+
+
+<script>
+function myFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    
+       ul.style.display="block";
+    
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+document.getElementById("myInput").addEventListener('focusout', function() {
+      document.getElementById("myUL").style.display="none";
+});
+</script>
+
+
 </main>
