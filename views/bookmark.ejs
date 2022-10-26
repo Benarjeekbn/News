@@ -12,7 +12,7 @@
               <div class="mb-3 row">
               <div class="col-sm-8">
                 <input type="text" id="myInput" onkeyup="myFunction()"  class="form-control" placeholder="Search for Bookmarks.." title="Type in a name">
-                <ul class="col-sm-4 " id="myUL">
+                <ul class="col-sm-8 " id="myUL">
                   <%for(let i=0;i<search.length;i++){%>
                   <li><a class="btn-link  text-secondary fw-bold" href="<%=search[i].url%>"><%=search[i].title%></a></li>
                   <%}%>
