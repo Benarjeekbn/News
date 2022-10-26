@@ -287,10 +287,20 @@ async function bookmarks(req, res) {
       }
     })
   })
+
+  const search = new Promise((success,failure)=>{
+    con.query(' select c.id, c.categoryId, c.categoryName, b.categoryId,b.bookmarkId,b.url,b.title from category c inner join bookmark b where c.categoryId=b.categoryId and c.id=?',req.user.user_id,(err,results)=>{
+      if(err){
+        failure(err);
+      }else{
+        success(results);
+      }
+    })
+  })
   
-  Promise.all([category,bookmark]).then(async (result)=>{
+  Promise.all([category,bookmark,search]).then(async (result)=>{
     
-    res.render('bookmark',{bookmarks:result[1],category:result[0],user:req.user,id:req.user.user_id})
+    res.render('bookmark',{bookmarks:result[1],category:result[0],search:result[2],user:req.user,id:req.user.user_id})
   })
 }
 
