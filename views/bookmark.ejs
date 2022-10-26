@@ -123,9 +123,13 @@ function myFunction() {
         }
     }
 }
-document.getElementById("myInput").addEventListener('focusout', function() {
+document.getElementById("myUL").addEventListener('mouseover', function() {
+      document.getElementById("myUL").style.display="block";
+});
+document.getElementById("myUL").addEventListener('mouseout', function() {
       document.getElementById("myUL").style.display="none";
 });
+
 </script>
 
 
